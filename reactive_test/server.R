@@ -13,15 +13,23 @@ server <- function(input, output, session) {
       data[nrow(data) + 1, ] <- c(format(theDate, "%Y-%m-%d"),nrow(csvData))
       theDate <- theDate + 1              
     }
+    data$date_val <- as.Date.character(data$date_val)
     data$acc_count <- as.integer(data$acc_count)
-    data$date_val <- as.Date.numeric(data$date_val)
     return(data)
   })
   output$summary<- renderPrint({
     # Use a reactive expression by calling it like a function
-    summary(getData()$acc_count)
+    summary(getData())
   })
   output$table <- renderTable({
     getData()
   })
+  
+  output$plot <- renderPlot({
+    #plot(format(getData()$date_val, "%Y-%m-%d"), getData()$acc_count)
+    ggplot( data = getData(), aes( date_val, acc_count )) + geom_line(colour='red') 
+  }, res = 96)
+  # output$plot <- renderPlot({
+  #   ggplot(getData(),aes(x=getData()$date_val,y=getData()$acc_count))+geom_point(colour='red')},height = 400,width = 600)
+
 }

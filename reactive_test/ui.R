@@ -1,5 +1,5 @@
 library(shiny)
-
+library(ggplot2)
 ui <- fluidPage(
   titlePanel("Account Details"),
   sidebarLayout(
@@ -9,7 +9,8 @@ ui <- fluidPage(
     ),
     mainPanel(
       verbatimTextOutput("summary"),
-      tableOutput("table")
+      tableOutput("table"),
+      plotOutput("plot")
     )
   )
 )
