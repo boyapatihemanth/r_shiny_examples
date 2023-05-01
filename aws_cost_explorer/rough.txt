@@ -1,0 +1,73 @@
+From and To
+
+2023-01-01
+to 
+2023-01-03
+$NextPageToken
+character(0)
+
+$GroupDefinitions
+list()
+
+$ResultsByTime
+$ResultsByTime[[1]]
+$ResultsByTime[[1]]$TimePeriod
+$ResultsByTime[[1]]$TimePeriod$Start
+[1] "2023-01-01"
+
+$ResultsByTime[[1]]$TimePeriod$End
+[1] "2023-01-02"
+
+
+$ResultsByTime[[1]]$Total
+$ResultsByTime[[1]]$Total$UnblendedCost
+$ResultsByTime[[1]]$Total$UnblendedCost$Amount
+[1] "0"
+
+$ResultsByTime[[1]]$Total$UnblendedCost$Unit
+[1] "USD"
+
+
+
+$ResultsByTime[[1]]$Groups
+list()
+
+$ResultsByTime[[1]]$Estimated
+[1] FALSE
+
+
+$ResultsByTime[[2]]
+$ResultsByTime[[2]]$TimePeriod
+$ResultsByTime[[2]]$TimePeriod$Start
+[1] "2023-01-02"
+
+$ResultsByTime[[2]]$TimePeriod$End
+[1] "2023-01-03"
+
+
+$ResultsByTime[[2]]$Total
+$ResultsByTime[[2]]$Total$UnblendedCost
+$ResultsByTime[[2]]$Total$UnblendedCost$Amount
+[1] "0"
+
+$ResultsByTime[[2]]$Total$UnblendedCost$Unit
+[1] "USD"
+
+
+
+$ResultsByTime[[2]]$Groups
+list()
+
+$ResultsByTime[[2]]$Estimated
+[1] FALSE
+
+
+
+$DimensionValueAttributes
+list()
+
+                         Length Class  Mode     
+NextPageToken            0      -none- character
+GroupDefinitions         0      -none- list     
+ResultsByTime            2      -none- list     
+DimensionValueAttributes 0      -none- list     
