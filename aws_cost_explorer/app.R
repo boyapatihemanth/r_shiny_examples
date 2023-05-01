@@ -20,18 +20,12 @@ ui <- fluidPage(
   dateRangeInput("fromto", "From and To", start = '2023-01-01', end = '2023-01-03', min = '2023-01-01',
                      max = '2023-04-26'),
   verbatimTextOutput("summary"),
-  selectInput("metric", "Select Metric", choices = c("UnblendedCost", "BlendedCost")),
+  selectInput("metric", "Select Metric", choices = c("UnblendedCost", "BlendedCost", "AmortizedCost" , "NetAmortizedCost" , "NetUnblendedCost" , "NormalizedUsageAmount")),
   plotlyOutput("plot")
 )
 populate_data_table <- function(item, data_output, counter, metric) {
-  if(metric == "UnblendedCost") {
     data_output[nrow(data_output) + 1, ] <- c(item$ResultsByTime[[counter]]$TimePeriod$End,
-                                              item$ResultsByTime[[counter]]$Total$UnblendedCost$Amount)
-  }
-  else if (metric == "BlendedCost") {
-    data_output[nrow(data_output) + 1, ] <- c(item$ResultsByTime[[counter]]$TimePeriod$End,
-                                              item$ResultsByTime[[counter]]$Total$BlendedCost$Amount)
-  }
+                                              eval(parse(text=(paste0("item$ResultsByTime[[",counter,"]]$Total$",metric,"$Amount")))))
   
   return(data_output)
 }
@@ -69,10 +63,18 @@ server <- function(input, output, session) {
     dataset()
   })
   output$plot <- renderPlotly({
-    fig <- plot_ly(dataset(), lables = ~date, values = ~cost, type = pie)
-    fig <- fig %>% layout(title = "Price",
-                          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-                          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+    plotly_data <- dataset()
+    
+    # fig <- plot_ly(plotly_data, lables = ~date, values = ~cost, type = pie)
+    # fig <- fig %>% layout(title = "Price",
+    #                       xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+    #                       yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+    fig <- plot_ly(
+      x = c(plotly_data$date),
+      y = c(plotly_data$cost),
+      name = "AWS Cost",
+      type = "bar"
+    )
     fig
   })
 }
